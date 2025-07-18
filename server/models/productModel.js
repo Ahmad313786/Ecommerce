@@ -2,14 +2,8 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
   size: {
-    type: [String],
+    type: Array,
     required: true,
-    validate: {
-      validator: function (arr) {
-        return arr.length > 0;
-      },
-      message: 'At least one size must be specified.'
-    }
   },
   name: {
     type: String,
@@ -32,15 +26,9 @@ const productSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  image: {
-    type: [String],
+  images: {
+    type: Array,
     required: true,
-    validate: {
-      validator: function (arr) {
-        return arr.length > 0;
-      },
-      message: 'At least one image URL is required.'
-    }
   },
   new_price: {
     type: Number,
