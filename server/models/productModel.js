@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
-  size: {
-    type: Array,
-    required: true,
-  },
   name: {
     type: String,
     required: true,
@@ -15,36 +11,35 @@ const productSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  price: {
+    type: Number,
+    required: true,
+    min: 0
+  },
   category: {
     type: String,
     required: true,
-    enum: ['men', 'women', 'kid'], // Optional: restrict to known categories
-    lowercase: true
+    enum: ['Men', 'Women', 'Kids']
   },
   subCategory: {
     type: String,
     required: true,
-    trim: true
+    enum: ['Topwear', 'Bottomwear', 'Winterwear']
+  },
+  bestSeller: {
+    type: Boolean,
+    default: false
+  },
+  sizes: {
+    type: [String], // e.g. ['S', 'M', 'L']
+    required: true
   },
   images: {
-    type: Array,
-    required: true,
-  },
-  new_price: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  old_price: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  best_seller: {
-    type: Boolean,
+    type: [String], // Array of image URLs or filenames
+    required: true
   }
-});
+}, { timestamps: true });
 
-const productModel = mongoose.models.product || mongoose.model("product",productSchema)
+const productModel = mongoose.models.Product || mongoose.model("Product", productSchema);
 
-export default productModel
+export default productModel;
