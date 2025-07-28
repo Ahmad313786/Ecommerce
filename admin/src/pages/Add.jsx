@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import upload from "../assets/upload_area.png";
 import axios from 'axios'
+import loadingIcon from "../assets/loadingIcon.gif"
 import {backendURL} from '../App'
 import { toast } from "react-toastify";
 const Add = ({token}) => {
 // 8:31:04
+const [loading, setLoading] = useState(false)
+
 const [image1, setImage1] = useState(false)
 const [image2, setImage2] = useState(false)
 const [image3, setImage3] = useState(false)
@@ -12,7 +15,8 @@ const [image4, setImage4] = useState(false)
 
 const [name, setName] = useState("")
 const [description, setDescription] = useState("")
-const [price, setPrice] = useState("")
+const [old_price, setOld_Price] = useState("")
+const [new_price, setNew_Price] = useState("")
 const [category, setCategory] = useState("Men")
 const [subCategory, setSubCategory] = useState("Topwear")
 const [bestSeller, setBestSeller] = useState(false)
@@ -20,11 +24,13 @@ const [sizes, setSizes] = useState([])
 
 const handleSubmit = async (e) => {
   e.preventDefault()
+  setLoading(true)
   try {
     const formData = new FormData()
     formData.append("name",name)
     formData.append("description",description)
-    formData.append("price",price)
+    formData.append("old_price",old_price)
+    formData.append("new_price",new_price)
     formData.append("category",category)
     formData.append("subCategory",subCategory)
     formData.append("bestSeller",bestSeller)
@@ -40,7 +46,8 @@ const handleSubmit = async (e) => {
       toast.success(response.data.message)
       setName("")
       setDescription("")
-      setPrice("")
+      setOld_Price("")
+      setNew_Price("")
       setImage1(false)
       setImage2(false)
       setImage3(false)
@@ -52,6 +59,7 @@ const handleSubmit = async (e) => {
     } else {
       toast.error(response.data.message)
     }
+    setLoading(false)
   } catch (error) {
     console.log(error);
     toast.error(error.message)
@@ -114,10 +122,15 @@ const handleSubmit = async (e) => {
             <option value="Winterwear">Winterwear</option>
           </select>
         </div>
-        {/* Product Price */}
+        {/* Product Old Price */}
         <div>
-          <p className="mb-2">Product Price</p>
-          <input onChange={(e) => setPrice(e.target.value)} value={price} className="w-full px-3 py-2 sm:w-[120px]" type="number" placeholder="25" />
+          <p className="mb-2">Old Price</p>
+          <input onChange={(e) => setOld_Price(e.target.value)} value={old_price} className="w-full px-3 py-2 sm:w-[120px]" type="number" placeholder="25" />
+        </div>
+        {/* Product New Price */}
+        <div>
+          <p className="mb-2">New Price</p>
+          <input onChange={(e) => setNew_Price(e.target.value)} value={new_price} className="w-full px-3 py-2 sm:w-[120px]" type="number" placeholder="25" />
         </div>
       </div>
       {/* Product Size */}
@@ -152,7 +165,10 @@ const handleSubmit = async (e) => {
         <label className="cursor-pointer" htmlFor="bestseller">Add to bestseller</label>
       </div>
       {/* Submit Button */}
-      <button type="submit" className="w-28 py-3 mt-4 bg-black text-white">ADD</button>
+      {
+        loading ? <img className="w-28" src={loadingIcon} alt="" /> :
+        <button disabled={loading} type="submit" className="w-28 py-3 mt-4 bg-black text-white">ADD</button>
+      }
     </form>
   );
 };

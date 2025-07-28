@@ -8,7 +8,8 @@ const addProduct = async (req, res) => {
     const {
       name,
       description,
-      price,
+      old_price,
+      new_price,
       category,
       subCategory,
       sizes,
@@ -37,7 +38,8 @@ const addProduct = async (req, res) => {
     const productData = {
       name,
       description,
-      price: Number(price),
+      old_price: Number(old_price),
+      new_price: Number(new_price),
       category,
       subCategory,
       sizes: JSON.parse(sizes), // must be stringified JSON in frontend

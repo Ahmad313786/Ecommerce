@@ -1,0 +1,54 @@
+import orderModel from '../models/orderModel.js'
+
+// Placing order using COD method
+
+const placeOrder = async (req,res) => {
+    try {
+        const {userId, items, amount, address} = req.body 
+        const orderData = {
+            userId,
+            items,
+            amount,
+            address,
+            paymentMethod: "COD",
+            payment: false,
+            date: Date.now()
+        }
+
+        const newOrder = new orderModel(orderData)
+    } catch (error) {
+        
+    }
+}
+
+// Placing order using Stripe method
+
+const placeOrderStripe = async (req,res) => {
+
+}
+
+// Placing order using Razorpay method
+
+const placeOrderRazorpay = async (req,res) => {
+
+}
+
+// All orders data for admin panel
+
+const allOrders = async (req,res) => {
+
+}
+
+// User order data for frontend
+
+const userOrders = async (req,res) => {
+
+}
+
+// Update order status from admin panel
+
+const updateStatus = async (req,res) => {
+
+}   
+
+export {placeOrder,placeOrderStripe,placeOrderRazorpay,allOrders,userOrders,updateStatus}
