@@ -198,6 +198,7 @@ const shopContextProvider = ({ children }) => {
     backendURL,
     setToken,
     token,
+    setCartItems
   };
 
   // =======================

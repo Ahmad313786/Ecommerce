@@ -1,4 +1,5 @@
 import orderModel from '../models/orderModel.js'
+import userModel from '../models/userModel.js'
 
 // Placing order using COD method
 
@@ -16,8 +17,14 @@ const placeOrder = async (req,res) => {
         }
 
         const newOrder = new orderModel(orderData)
+        await newOrder.save()
+
+        await userModel.findByIdAndUpdate(userId,{cartData:{}})
+
+        res.json({success:true,message:"Order Placed"})
     } catch (error) {
-        
+        console.log(error);
+        res.json({success:false,message:error.message})
     }
 }
 
