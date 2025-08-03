@@ -8,6 +8,7 @@ import Login from "./pages/Login"
 import Contact from "./pages/Contact"
 import Product from "./pages/Product"
 import PlaceOrder from "./pages/PlaceOrder"
+import Verify from "./pages/Verify"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import SearchBar from "./components/SearchBar"
@@ -29,6 +30,7 @@ function App() {
         <Route path="/contact" element={<Contact/>} />
         <Route path="/place-order" element={<PlaceOrder/>} />
         <Route path="/product/:productId" element={<Product/>} />
+        <Route path="/verify" element={<Verify/>} />
       </Routes>
       <Footer/>
     </div>
